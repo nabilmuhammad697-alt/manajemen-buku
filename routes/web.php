@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\UserRoleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -47,6 +48,15 @@ Route::middleware(['auth', 'can:books.edit'])->group(function () {
 Route::middleware(['auth', 'can:books.delete'])->group(function () {
     Route::delete('/books/{book}', [BookController::class, 'destroy'])
         ->name('books.destroy');
+});
+
+// Pengelolaan Role Pengguna (Khusus Admin)
+Route::middleware(['auth', 'permission:users.manage-roles'])->group(function () {
+    Route::get('/users/roles', [UserRoleController::class, 'index'])
+        ->name('users.roles.index');
+
+    Route::put('/users/{user}/role', [UserRoleController::class, 'update'])
+        ->name('users.roles.update');
 });
 
 require __DIR__.'/auth.php';

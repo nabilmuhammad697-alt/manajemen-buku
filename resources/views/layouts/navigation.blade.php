@@ -1,3 +1,4 @@
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,6 +27,14 @@
                         <x-nav-link :href="route('books.index')"
                             :active="request()->routeIs('books.*')">
                             {{ __('Manajemen Buku') }}
+                        </x-nav-link>
+                    @endcan
+
+                    <!-- Pengelolaan Role khusus Admin -->
+                    @can('users.manage-roles')
+                        <x-nav-link :href="route('users.roles.index')"
+                            :active="request()->routeIs('users.roles.*')">
+                            {{ __('Pengelolaan Role') }}
                         </x-nav-link>
                     @endcan
 
@@ -130,6 +139,14 @@
                 <x-responsive-nav-link :href="route('books.index')"
                     :active="request()->routeIs('books.*')">
                     {{ __('Manajemen Buku') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            <!-- Pengelolaan Role khusus Admin -->
+            @can('users.manage-roles')
+                <x-responsive-nav-link :href="route('users.roles.index')"
+                    :active="request()->routeIs('users.roles.*')">
+                    {{ __('Pengelolaan Role') }}
                 </x-responsive-nav-link>
             @endcan
 
